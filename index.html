@@ -163,15 +163,15 @@
 <body>
 <div class="container">
     <h1>📚 完整数学指南</h1>
-    <div class="subtitle">函数 · 微积分· 积分 · 矩阵（逆/特征值）· 统计 | 下拉菜单选择主题</div>
+    <div class="subtitle">幂函数 · 微积分（导数, 定积分) · 矩阵（逆/特征值）· 统计 | 下拉菜单选择主题</div>
 
     <div class="topic-nav">
         <label>📖 选择学习主题：</label>
         <select id="topicSelect">
             <option value="functions">🔹 函数基础 & 幂函数 (Power Function)</option>
             <option value="precalculus">📐 预备微积分 (指数/对数/三角)</option>
-            <option value="calculus1">⚡ 微积分 I — 导数 (变化率)</option>
-            <option value="calculus2">📦 微积分 II — 积分 (面积与累加)</option>
+            <option value="calculus1">⚡ 微积分 I — 导数 \\( f'(x) \\) (变化率)</option>
+            <option value="calculus2">📦 微积分 II — 定积分 (面积与累加)</option>
             <option value="matrices">🧮 矩阵 — 逆矩阵 & 特征值</option>
             <option value="statistics">📊 基础统计 (均值/方差/正态分布)</option>
         </select>
@@ -183,11 +183,12 @@
         </div>
         <div class="content-body" id="dynamicBody"></div>
     </div>
-
+   
 </div>
 
 <script>
-    // 所有 LaTeX 中的反斜杠都使用双反斜杠转义，确保 \frac, \sqrt, \int, \lim 等正确渲染
+    // 所有 LaTeX 中的反斜杠都使用双反斜杠转义，确保正确渲染
+    // 注意：已移除所有不定积分（反导数）内容，只保留定积分（面积计算）
     const topicsContent = {
         functions: `
             <h3>📌 什么是函数？</h3>
@@ -208,8 +209,7 @@
                 </ul>
                 <strong>🔢 幂函数求导法则：</strong> 若 \\( f(x) = x^a \\)，则 \\( f'(x) = a \\, x^{a-1} \\)。<br>
                 例子：\\( f(x) = x^5 \\Rightarrow f'(x) = 5x^4 \\)；\\( f(x) = \\sqrt{x} \\Rightarrow f'(x) = \\frac{1}{2\\sqrt{x}} \\)。<br>
-                <strong>📐 幂函数积分法则：</strong> \\( \\int x^a \\, dx = \\frac{x^{a+1}}{a+1} + C \\)（当 \\( a \\neq -1 \\)）。<br>
-                例子：\\( \\int x^3 \\, dx = \\frac{x^4}{4} + C \\)。
+                <strong>📐 幂函数积分（定积分）示例：</strong> \\( \\int_0^2 x^3 \\, dx = \\left[ \\frac{x^4}{4} \\right]_0^2 = \\frac{16}{4} - 0 = 4 \\)。
             </div>
             <div class="example-box">
                 🧪 <strong>实际应用：</strong> 自由落体距离 \\( s = \\frac{1}{2}gt^2 \\) 是幂函数（\\( t^2 \\)）；开普勒第三定律 \\( T^2 \\propto R^3 \\)。
@@ -268,21 +268,35 @@
             <div class="detail-box"><strong>📌 高阶导数：</strong> 二阶导数 \\( f''(x) \\) 表示加速度或曲率。例：\\( f(x)=x^3 \\Rightarrow f'(x)=3x^2, f''(x)=6x \\)。</div>
         `,
         calculus2: `
-            <h3>📦 积分：累加与面积</h3>
+            <h3>📦 定积分：曲线下的面积（累加）</h3>
             <div class="detail-box">
-                <strong>不定积分（反导数）：</strong> 求 \\( F(x) \\) 使 \\( F'(x)=f(x) \\)，记作 \\( \\int f(x)dx \\)。<br>
-                <strong>幂函数积分公式：</strong> \\( \\int x^n dx = \\frac{x^{n+1}}{n+1} + C \\)（\\( n \\neq -1 \\)）。<br>
-                例：\\( \\int x^3 dx = \\frac{x^4}{4} + C \\)；\\( \\int \\frac{1}{x^2} dx = -\\frac{1}{x} + C \\)。<br>
-                <strong>定积分 (面积)：</strong> \\( \\int_a^b f(x)dx = F(b)-F(a) \\)（牛顿-莱布尼茨公式）。
+                <strong>🔹 定积分的定义：</strong> 定积分 \\( \\int_a^b f(x) \\, dx \\) 表示函数 \\( f(x) \\) 在区间 \\([a, b]\\) 上与 x 轴之间区域的代数和（面积）。<br>
+                <strong>几何意义：</strong> 当 \\( f(x) \\ge 0 \\) 时，\\( \\int_a^b f(x) \\, dx \\) 等于曲线下方的面积。<br>
+                <strong>📐 微积分基本定理（求定积分的方法）：</strong> 如果 \\( F(x) \\) 是 \\( f(x) \\) 的一个反导数（即 \\( F'(x) = f(x) \\)），那么<br>
+                \\[ \\int_a^b f(x) \\, dx = F(b) - F(a) \\]<br>
+                <strong>幂函数的定积分示例：</strong> \\( \\int_1^3 2x \\, dx = [x^2]_1^3 = 3^2 - 1^2 = 9 - 1 = 8 \\)。
             </div>
             <div class="example-box">
-                💧 <strong>详细例子：</strong> \\( \\int_1^3 2x dx = [x^2]_1^3 = 9-1 = 8 \\)。几何意义：曲线 \\( y=2x \\) 下方面积为8。
+                💧 <strong>详细面积例子：</strong> 求曲线 \\( y = x^2 \\) 从 \\( x=0 \\) 到 \\( x=2 \\) 下方的面积。<br>
+                解答：\\( \\int_0^2 x^2 \\, dx = \\left[ \\frac{x^3}{3} \\right]_0^2 = \\frac{8}{3} - 0 = \\frac{8}{3} \\approx 2.667 \\) 平方单位。
             </div>
             <div class="detail-box">
-                <strong>应用：</strong> 速度积分得位移 \\( \\int v(t)dt \\)；水流速率积分得总水量；概率密度积分得概率。
+                <strong>🌊 定积分的应用：</strong>
+                <ul>
+                    <li><strong>物理：</strong> 速度 \\( v(t) \\) 的定积分 \\( \\int_{t_1}^{t_2} v(t) \\, dt \\) 等于位移（距离变化）。</li>
+                    <li><strong>工程：</strong> 水流速率 \\( r(t) \\) 的定积分 \\( \\int_0^T r(t) \\, dt \\) 等于总水量。</li>
+                    <li><strong>概率：</strong> 连续随机变量落在区间 \\([a,b]\\) 的概率为 \\( \\int_a^b f_X(x) \\, dx \\)，其中 \\( f_X \\) 是概率密度函数。</li>
+                    <li><strong>体积计算（切片法）：</strong> 旋转体体积 \\( V = \\pi \\int_a^b [f(x)]^2 \\, dx \\)。</li>
+                </ul>
             </div>
             <div class="formula-card">
-                📐 常用积分：\\( \\int e^x dx = e^x + C \\)，\\( \\int \\frac{1}{x} dx = \\ln|x| + C \\)，\\( \\int \\sin x dx = -\\cos x + C \\)
+                📐 常用定积分示例：<br>
+                \\( \\int_0^{\\pi} \\sin x \\, dx = [-\\cos x]_0^{\\pi} = (-(-1)) - (-1) = 1 + 1 = 2 \\)<br>
+                \\( \\int_1^e \\frac{1}{x} \\, dx = [\\ln x]_1^e = 1 - 0 = 1 \\)
+            </div>
+            <div class="example-box">
+                🚗 <strong>实际应用例子：</strong> 一辆车的速度函数为 \\( v(t) = 3t^2 \\) 米/秒（\\( t \\) 的单位是秒）。求从 \\( t=0 \\) 到 \\( t=4 \\) 秒行驶的距离。<br>
+                距离 = \\( \\int_0^4 3t^2 \\, dt = [t^3]_0^4 = 64 - 0 = 64 \\) 米。
             </div>
         `,
         matrices: `
@@ -337,7 +351,7 @@
             case "functions": title = "🔹 函数基础 & 幂函数"; html = topicsContent.functions; break;
             case "precalculus": title = "📐 预备微积分 (指数/对数/三角)"; html = topicsContent.precalculus; break;
             case "calculus1": title = "⚡ 微积分 I — 导数 \\( f'(x) \\) (变化率)"; html = topicsContent.calculus1; break;
-            case "calculus2": title = "📦 微积分 II — 积分 (面积与累加)"; html = topicsContent.calculus2; break;
+            case "calculus2": title = "📦 微积分 II — 定积分 (面积与累加)"; html = topicsContent.calculus2; break;
             case "matrices": title = "🧮 矩阵 — 逆矩阵 & 特征值"; html = topicsContent.matrices; break;
             case "statistics": title = "📊 基础统计 (均值/方差/正态分布)"; html = topicsContent.statistics; break;
             default: title = "🔹 函数基础 & 幂函数"; html = topicsContent.functions;
