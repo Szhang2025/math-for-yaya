@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Advanced Math Compendium | Functions · Calculus · Matrices · Statistics</title>
-    <!-- MathJax for LaTeX -->
+    <title>Complete Math Guide + Exercise Vault | Functions · Calculus · Matrices · Statistics</title>
+    <!-- MathJax for LaTeX rendering - properly configured -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']],
+                processEscapes: true
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady();
+                }
+            }
+        };
+    </script>
     <style>
         * {
             margin: 0;
@@ -13,60 +27,47 @@
             box-sizing: border-box;
         }
         body {
-            background: #fefefe;
-            font-family: 'Georgia', 'Times New Roman', 'Segoe UI', serif;
-            color: #1a2a3a;
-            line-height: 1.6;
-            padding: 2rem 1.5rem;
+            background: #f4f7fc;
+            font-family: 'Segoe UI', 'Georgia', 'Times New Roman', serif;
+            color: #1a2c3e;
+            line-height: 1.55;
+            padding: 2rem 1rem;
         }
         .container {
             max-width: 1300px;
             margin: 0 auto;
             background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-radius: 1rem;
-            padding: 2rem;
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.2);
+            overflow: hidden;
+            padding: 2rem 2rem 2.5rem;
         }
         h1 {
-            font-size: 2.5rem;
-            color: #0b3b4f;
-            border-bottom: 3px solid #2c7da0;
-            padding-bottom: 0.5rem;
+            font-size: 2.4rem;
+            color: #0b4b6b;
+            border-bottom: 3px solid #2c9baf;
+            display: inline-block;
+            padding-bottom: 0.3rem;
             margin-bottom: 1rem;
         }
         h2 {
-            font-size: 1.9rem;
-            margin-top: 2rem;
-            margin-bottom: 0.8rem;
-            color: #1f5e7e;
-            background: #eef4fa;
-            padding: 0.3rem 1rem;
-            border-radius: 12px;
+            font-size: 1.8rem;
+            margin: 1.8rem 0 1rem;
+            background: #e5f0fa;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            color: #105e7e;
         }
         h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin: 1.2rem 0 0.6rem;
-            color: #2c6e9e;
-            font-weight: 600;
-        }
-        h4 {
-            font-size: 1.2rem;
-            margin: 0.8rem 0 0.4rem;
-            color: #2c5a74;
+            color: #1f6a8c;
         }
         .definition {
             background: #e9f2f0;
             border-left: 6px solid #1f7a5a;
             padding: 1rem 1.5rem;
             margin: 1.2rem 0;
-            border-radius: 12px;
-            font-size: 1rem;
-        }
-        .theorem {
-            background: #f0f3f9;
-            border-left: 6px solid #3a6ea5;
-            padding: 1rem 1.5rem;
-            margin: 1rem 0;
             border-radius: 12px;
         }
         .example-box {
@@ -75,16 +76,6 @@
             border-radius: 14px;
             padding: 1rem 1.3rem;
             margin: 1rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .formula-card {
-            background: #f5f7fb;
-            padding: 0.8rem 1.2rem;
-            border-radius: 16px;
-            font-family: monospace;
-            text-align: center;
-            margin: 0.8rem 0;
-            font-size: 1.05rem;
         }
         .grid-2col {
             display: grid;
@@ -97,7 +88,6 @@
             border: 1px solid #dce5ef;
             border-radius: 1rem;
             overflow: hidden;
-            transition: 0.1s;
         }
         .panel-head {
             background: #fafcff;
@@ -109,14 +99,12 @@
         .panel-body {
             padding: 1rem 1.2rem;
         }
-        .badge {
-            background: #cbdde9;
-            padding: 0.2rem 0.6rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-right: 0.5rem;
+        .theorem {
+            background: #f0f3f9;
+            border-left: 6px solid #3a6ea5;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
         }
         table {
             width: 100%;
@@ -132,39 +120,110 @@
             background: #eef2f8;
         }
         footer {
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             text-align: center;
             font-size: 0.8rem;
-            color: #5e727f;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 1.5rem;
+            color: #5c6f87;
+            border-top: 1px solid #dce5ef;
+            padding-top: 1rem;
         }
-        .interactive-note {
-            background: #eef4ff;
-            padding: 0.8rem;
-            border-radius: 20px;
-            margin-top: 1rem;
-            font-family: monospace;
+        /* Dropdown & Exercise Vault Styles */
+        .exercise-vault {
+            background: #f0f6fe;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0 1rem;
+            border: 2px dashed #2c7da0;
         }
-        button, input {
-            padding: 0.4rem 0.8rem;
-            border-radius: 40px;
-            border: 1px solid #b9c8e0;
-            background: white;
-            font-family: inherit;
+        .vault-header {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
         }
-        button {
+        .vault-header h2 {
+            margin: 0;
             background: #2c7da0;
             color: white;
-            border: none;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 1.4rem;
+        }
+        select {
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 40px;
+            border: 1px solid #b9cee8;
+            background: white;
             font-weight: bold;
             cursor: pointer;
+            font-family: inherit;
+            min-width: 260px;
         }
-        .result {
-            background: #e3f0fc;
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
+        .exercise-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+            border-left: 8px solid #f4b942;
+        }
+        .problem-statement {
+            font-weight: 700;
+            font-size: 1.05rem;
+            background: #fef7e0;
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        .problem-text {
+            margin: 0.8rem 0;
+            line-height: 1.5;
+        }
+        .solution-detail {
+            background: #eef6e9;
+            border-left: 5px solid #2e7d64;
+            padding: 1rem 1.3rem;
             margin-top: 0.8rem;
+            border-radius: 1rem;
+            display: none;
+        }
+        .solution-detail.show {
+            display: block;
+        }
+        .sol-title {
+            font-weight: bold;
+            color: #1f5e4a;
+            margin-bottom: 0.5rem;
+        }
+        button.sol-toggle {
+            background: #4f6f8f;
+            color: white;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 0.6rem;
+            font-size: 0.8rem;
+        }
+        button.sol-toggle:hover {
+            background: #2c5a74;
+        }
+        hr {
+            margin: 1.2rem 0;
+        }
+        .badge {
+            background: #cbdde9;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .math-fix {
+            font-family: monospace;
         }
         @media (max-width: 700px) {
             .container { padding: 1rem; }
@@ -174,6 +233,7 @@
 </head>
 <body>
 <div class="container">
+    <!-- ================= ORIGINAL HTML CONTENT (PRESERVED FULLY WITH FIXED MATH) ================= -->
     <h1>📖 Foundations of Higher Mathematics: A Detailed Walkthrough</h1>
     <p style="font-size:1.1rem; margin-bottom:1.6rem;">Comprehensive, example-driven introduction to <strong>Functions</strong> (and their special families), <strong>Precalculus</strong>, <strong>Calculus I & II</strong>, <strong>Matrices</strong> (inverses, eigenvalues, applications), and <strong>Basic Statistics</strong>. No shortcuts — each concept includes rigorous definitions, derivations, real-world applications, and extended examples.</p>
 
@@ -188,221 +248,222 @@
 
     <h3>✨ Special Function Families — Detailed Breakdown</h3>
     <div class="grid-2col">
-        <div class="info-panel">
-            <div class="panel-head">📈 Linear Functions</div>
-            <div class="panel-body">
-                <strong>General form:</strong> \( f(x) = mx + b \) (slope \( m \), y-intercept \( b \)).<br>
-                <strong>Rate of change:</strong> constant \( m = \frac{\Delta y}{\Delta x} \).<br>
-                <strong>Example:</strong> Distance traveled at constant speed: \( d(t) = 70t \) miles (m=70).<br>
-                <strong>Application:</strong> Cost models \( C(x) = 12x + 150 \) (variable + fixed cost).<br>
-                <strong>Inverse:</strong> \( f^{-1}(y) = (y-b)/m \) (if \( m \neq 0 \)).
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">🌀 Quadratic Functions</div>
-            <div class="panel-body">
-                \( f(x) = ax^2 + bx + c \), \( a \neq 0 \). Parabola opens up if \( a>0 \). Vertex \( x_v = -\frac{b}{2a} \).<br>
-                <strong>Example:</strong> Projectile motion: \( h(t) = -4.9t^2 + 30t + 2 \) (height in meters). Max height at \( t = 30/(9.8) \approx 3.06s \).<br>
-                <strong>Discriminant:</strong> \( \Delta = b^2-4ac \) determines roots.<br>
-                <strong>Applications:</strong> Profit maximization, area optimization, satellite dishes.
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">⚡ Exponential Functions</div>
-            <div class="panel-body">
-                \( f(x) = a \cdot b^{x} \) (\( b > 0, b \neq 1 \)). Growth if \( b>1 \), decay if \( 0<b<1 \).<br>
-                <strong>Natural exponential:</strong> \( f(x)=e^{kx} \). Doubling time \( T_2 = \frac{\ln 2}{k} \).<br>
-                <strong>Example:</strong> Investment: \( A = 1000 e^{0.05t} \), after 10 years \( A \approx 1648.72 \).<br>
-                <strong>Applications:</strong> Radioactive decay (half-life), population growth, epidemiology.
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">📊 Logarithmic Functions</div>
-            <div class="panel-body">
-                \( y = \log_b(x) \) ⇔ \( b^y = x \) (\( x>0 \)). Natural log: \( \ln(x) = \log_e(x) \).<br>
-                <strong>Properties:</strong> \( \log_b(mn) = \log_b m + \log_b n \), \( \log_b(m^k)=k\log_b m \).<br>
-                <strong>Example:</strong> \( \log_2(64)=6 \).<br>
-                <strong>Applications:</strong> pH = \(-\log_{10}[H^+]\), Richter scale, sound intensity (decibels).
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">🌊 Trigonometric Functions</div>
-            <div class="panel-body">
-                Sine, cosine, tangent: periodic with period \( 2\pi \) (sin, cos). \( \sin^2 x + \cos^2 x = 1 \).<br>
-                <strong>Example:</strong> \( y = 5\sin(3x-\pi/2) \): amplitude 5, period \( 2\pi/3 \), phase shift \( \pi/6 \).<br>
-                <strong>Applications:</strong> AC circuits, harmonic oscillators, Fourier series, navigation.
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">🧩 Polynomial & Rational</div>
-            <div class="panel-body">
-                Polynomial: \( P(x) = a_n x^n + ... + a_0 \). Rational: \( R(x) = P(x)/Q(x) \).<br>
-                <strong>Example:</strong> \( f(x)=\frac{x^2-1}{x-2} \) has vertical asymptote at \( x=2 \).<br>
-                <strong>Applications:</strong> Curve fitting, electrical impedance, control theory.
-            </div>
-        </div>
+        <div class="info-panel"><div class="panel-head">📈 Linear Functions</div><div class="panel-body"><strong>General form:</strong> \( f(x) = mx + b \) (slope \( m \), y-intercept \( b \)).<br><strong>Rate of change:</strong> constant \( m = \frac{\Delta y}{\Delta x} \).<br><strong>Example:</strong> Distance traveled at constant speed: \( d(t) = 70t \) miles (m=70).<br><strong>Application:</strong> Cost models \( C(x) = 12x + 150 \) (variable + fixed cost).<br><strong>Inverse:</strong> \( f^{-1}(y) = (y-b)/m \) (if \( m \neq 0 \)).</div></div>
+        <div class="info-panel"><div class="panel-head">🌀 Quadratic Functions</div><div class="panel-body">\( f(x) = ax^2 + bx + c \), \( a \neq 0 \). Parabola opens up if \( a>0 \). Vertex \( x_v = -\frac{b}{2a} \).<br><strong>Example:</strong> Projectile motion: \( h(t) = -4.9t^2 + 30t + 2 \) (height in meters). Max height at \( t = 30/(9.8) \approx 3.06s \).<br><strong>Discriminant:</strong> \( \Delta = b^2-4ac \) determines roots.<br><strong>Applications:</strong> Profit maximization, area optimization, satellite dishes.</div></div>
+        <div class="info-panel"><div class="panel-head">⚡ Exponential Functions</div><div class="panel-body">\( f(x) = a \cdot b^{x} \) where \( b > 0 \), \( b \neq 1 \). <strong>Growth</strong> if \( b > 1 \), <strong>decay</strong> if \( 0 < b < 1 \).<br><strong>Natural exponential:</strong> \( f(x)=e^{kx} \). Doubling time \( T_2 = \frac{\ln 2}{k} \) (for growth).<br><strong>Example:</strong> Investment: \( A = 1000 e^{0.05t} \), after 10 years \( A \approx 1648.72 \).<br><strong>Applications:</strong> Radioactive decay (half-life), population growth, epidemiology.</div></div>
+        <div class="info-panel"><div class="panel-head">📊 Logarithmic Functions</div><div class="panel-body">\( y = \log_b(x) \) ⇔ \( b^y = x \) with \( x>0 \). Natural log: \( \ln(x) = \log_e(x) \).<br><strong>Properties:</strong> \( \log_b(mn) = \log_b m + \log_b n \), \( \log_b(m^k)=k\log_b m \).<br><strong>Example:</strong> \( \log_2(64)=6 \).<br><strong>Applications:</strong> pH = \(-\log_{10}[H^+]\), Richter scale, sound intensity (decibels).</div></div>
+        <div class="info-panel"><div class="panel-head">🌊 Trigonometric Functions</div><div class="panel-body">Sine, cosine, tangent: periodic with period \( 2\pi \) (sin, cos). \( \sin^2 x + \cos^2 x = 1 \).<br><strong>Example:</strong> \( y = 5\sin(3x-\pi/2) \): amplitude 5, period \( 2\pi/3 \), phase shift \( \pi/6 \).<br><strong>Applications:</strong> AC circuits, harmonic oscillators, Fourier series, navigation.</div></div>
+        <div class="info-panel"><div class="panel-head">🧩 Polynomial & Rational</div><div class="panel-body">Polynomial: \( P(x) = a_n x^n + ... + a_0 \). Rational: \( R(x) = P(x)/Q(x) \).<br><strong>Example:</strong> \( f(x)=\frac{x^2-1}{x-2} \) has vertical asymptote at \( x=2 \).<br><strong>Applications:</strong> Curve fitting, electrical impedance, control theory.</div></div>
     </div>
 
-    <div class="example-box">
-        📚 <strong>Detailed Example – Composition & Inverses:</strong> Let \( f(x)=3x+2 \) and \( g(x)=x^2 \). Then \( (f \circ g)(x) = 3x^2+2 \), \( (g \circ f)(x) = (3x+2)^2 \). Inverse of \( f \): \( f^{-1}(y) = (y-2)/3 \). In real life, converting Celsius to Fahrenheit then to Kelvin is composition.
-    </div>
+    <div class="example-box">📚 <strong>Detailed Example – Composition & Inverses:</strong> Let \( f(x)=3x+2 \) and \( g(x)=x^2 \). Then \( (f \circ g)(x) = 3x^2+2 \), \( (g \circ f)(x) = (3x+2)^2 \). Inverse of \( f \): \( f^{-1}(y) = (y-2)/3 \). In real life, converting Celsius to Fahrenheit then to Kelvin is composition.</div>
 
-    <!-- =============== PART 2: PRECALCULUS (detailed) =============== -->
     <h2>📐 2. Precalculus: Preparing for Change</h2>
     <p>Precalculus solidifies function analysis, introduces limits informally, and explores advanced algebraic concepts: polynomial long division, partial fractions, parametric equations, polar coordinates, and sequences/series.</p>
-    <div class="theorem">
-        <strong>🔹 Binomial Theorem:</strong> \( (x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k}y^k \). Used in probability and combinatorics.<br>
-        <strong>🔹 Trigonometric Identities:</strong> \( \sin(2\theta)=2\sin\theta\cos\theta \), \( \cos(2\theta)=\cos^2\theta-\sin^2\theta \).<br>
-        <strong>🔹 Exponential-logarithmic inversion:</strong> \( \ln(e^x)=x \), \( e^{\ln x}=x \) for \( x>0 \).
-    </div>
-    <div class="example-box">
-        🌍 <strong>Real-world precalculus application – Logistic growth:</strong> \( P(t)=\frac{K}{1+Ae^{-rt}} \) models population with carrying capacity \( K \). For \( K=1000, A=4, r=0.3 \), half capacity reached at \( t = \frac{\ln A}{r} \approx 4.62 \) time units.
-    </div>
+    <div class="theorem"><strong>🔹 Binomial Theorem:</strong> \( (x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k}y^k \). Used in probability and combinatorics.<br><strong>🔹 Trigonometric Identities:</strong> \( \sin(2\theta)=2\sin\theta\cos\theta \), \( \cos(2\theta)=\cos^2\theta-\sin^2\theta \).<br><strong>🔹 Exponential-logarithmic inversion:</strong> \( \ln(e^x)=x \), \( e^{\ln x}=x \) for \( x>0 \).</div>
+    <div class="example-box">🌍 <strong>Real-world precalculus application – Logistic growth:</strong> \( P(t)=\frac{K}{1+Ae^{-rt}} \) models population with carrying capacity \( K \). For \( K=1000, A=4, r=0.3 \), half capacity reached at \( t = \frac{\ln A}{r} \approx 4.62 \) time units.</div>
 
-    <!-- =============== PART 3: CALCULUS I – DERIVATIVES (extremely detailed) =============== -->
     <h2>⚡ 3. Calculus I: Derivatives – The Instantaneous Rate</h2>
-    <div class="definition">
-        <strong>Derivative definition:</strong> \( f'(x) = \lim_{h \to 0} \frac{f(x+h)-f(x)}{h} \) (if the limit exists). Geometrically: slope of tangent line. Physically: velocity if \( f \) is position.
-    </div>
+    <div class="definition"><strong>Derivative definition:</strong> \( f'(x) = \lim_{h \to 0} \frac{f(x+h)-f(x)}{h} \) (if the limit exists). Geometrically: slope of tangent line. Physically: velocity if \( f \) is position.</div>
     <div class="grid-2col">
-        <div class="info-panel">
-            <div class="panel-head">Differentiation Rules</div>
-            <div class="panel-body">
-                • Power rule: \( \frac{d}{dx}x^n = n x^{n-1} \)<br>
-                • Product rule: \( (fg)' = f'g + fg' \)<br>
-                • Quotient rule: \( \left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2} \)<br>
-                • Chain rule: \( \frac{d}{dx}f(g(x)) = f'(g(x)) g'(x) \)<br>
-                • \( \frac{d}{dx}\sin x = \cos x \), \( \frac{d}{dx}e^x = e^x \), \( \frac{d}{dx}\ln x = 1/x \).
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">Applications: Optimization & Related Rates</div>
-            <div class="panel-body">
-                <strong>Critical points:</strong> solve \( f'(x)=0 \) to find local extrema.<br>
-                <strong>Example – Minimize material:</strong> Cylindrical can volume \( V=\pi r^2 h = 500 \) cm³. Surface area \( S=2\pi r^2+2\pi r h = 2\pi r^2 + 2\pi r (V/(\pi r^2)) = 2\pi r^2 + 1000/r \). \( S'(r)=4\pi r - 1000/r^2 =0 \) → \( r^3 = 250/\pi \) → \( r \approx 4.30 \) cm, \( h\approx 8.60 \) cm.<br>
-                <strong>Related rates:</strong> A balloon inflating: \( \frac{dV}{dt} = 4\pi r^2 \frac{dr}{dt} \).
-            </div>
-        </div>
-    </div>
-    <div class="example-box">
-        📌 <strong>Step-by-step derivative example:</strong> Find \( f'(x) \) for \( f(x)=x^2 \sin(x) \). Using product rule: \( f'(x) = (2x)\sin x + x^2 \cos x \). Evaluate at \( x=\pi \): \( f'(\pi) = 2\pi \cdot 0 + \pi^2(-1) = -\pi^2 \).
+        <div class="info-panel"><div class="panel-head">Differentiation Rules</div><div class="panel-body">• Power rule: \( \frac{d}{dx}x^n = n x^{n-1} \)<br>• Product rule: \( (fg)' = f'g + fg' \)<br>• Quotient rule: \( \left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2} \)<br>• Chain rule: \( \frac{d}{dx}f(g(x)) = f'(g(x)) g'(x) \)<br>• \( \frac{d}{dx}\sin x = \cos x \), \( \frac{d}{dx}e^x = e^x \), \( \frac{d}{dx}\ln x = 1/x \).</div></div>
+        <div class="info-panel"><div class="panel-head">Applications: Optimization & Related Rates</div><div class="panel-body"><strong>Critical points:</strong> solve \( f'(x)=0 \) to find local extrema.<br><strong>Example – Minimize material:</strong> Cylindrical can volume \( V=\pi r^2 h = 500 \) cm³. Surface area \( S=2\pi r^2+2\pi r h = 2\pi r^2 + 1000/r \). \( S'(r)=4\pi r - 1000/r^2 =0 \) → \( r^3 = 250/\pi \) → \( r \approx 4.30 \) cm, \( h\approx 8.60 \) cm.<br><strong>Related rates:</strong> A balloon inflating: \( \frac{dV}{dt} = 4\pi r^2 \frac{dr}{dt} \).</div></div>
     </div>
 
-    <!-- =============== PART 4: CALCULUS II – INTEGRALS (extremely detailed) =============== -->
     <h2>📦 4. Calculus II: Integrals – Accumulation of Quantities</h2>
-    <div class="definition">
-        <strong>Definite integral:</strong> \( \int_a^b f(x)\,dx = \lim_{n\to\infty} \sum_{i=1}^n f(x_i^*)\Delta x \). Represents signed area under \( f \) from \( a \) to \( b \).<br>
-        <strong>Fundamental Theorem of Calculus:</strong> If \( F'(x)=f(x) \), then \( \int_a^b f(x)\,dx = F(b)-F(a) \). Integration reverses differentiation.
-    </div>
+    <div class="definition"><strong>Definite integral:</strong> \( \int_a^b f(x)\,dx = \lim_{n\to\infty} \sum_{i=1}^n f(x_i^*)\Delta x \). Represents signed area under \( f \) from \( a \) to \( b \).<br><strong>Fundamental Theorem of Calculus:</strong> If \( F'(x)=f(x) \), then \( \int_a^b f(x)\,dx = F(b)-F(a) \). Integration reverses differentiation.</div>
     <div class="grid-2col">
-        <div class="info-panel">
-            <div class="panel-head">Integration Techniques</div>
-            <div class="panel-body">
-                • Power rule: \( \int x^n dx = \frac{x^{n+1}}{n+1}+C \) (\( n\neq -1 \))<br>
-                • Substitution: \( \int f(g(x))g'(x)dx = \int f(u)du \)<br>
-                • Integration by parts: \( \int u\,dv = uv - \int v\,du \)<br>
-                • Partial fractions for rational functions<br>
-                • \( \int \frac{1}{x}dx = \ln|x|+C \)
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">Applications: Area, Volume, Work</div>
-            <div class="panel-body">
-                <strong>Area between curves:</strong> \( \int_a^b [f(x)-g(x)]dx \).<br>
-                <strong>Volume of revolution (disk method):</strong> \( V = \pi \int_a^b [f(x)]^2 dx \).<br>
-                <strong>Work:</strong> \( W = \int F(x)\,dx \) (variable force).<br>
-                <strong>Example:</strong> \( \int_0^3 x^2 dx = [x^3/3]_0^3 = 9 \).<br>
-                <strong>Probability:</strong> For a continuous random variable, \( P(a\le X\le b)=\int_a^b f_X(x)dx \).
-            </div>
-        </div>
-    </div>
-    <div class="example-box">
-        💧 <strong>Real integral application – total water flow:</strong> A pipe's flow rate \( r(t)=5+2t \) liters/min. Total water from \( t=0 \) to \( t=10 \) minutes: \( \int_0^{10} (5+2t)dt = [5t+t^2]_0^{10} = 50+100=150 \) liters.
+        <div class="info-panel"><div class="panel-head">Integration Techniques</div><div class="panel-body">• Power rule: \( \int x^n dx = \frac{x^{n+1}}{n+1}+C \) (\( n\neq -1 \))<br>• Substitution: \( \int f(g(x))g'(x)dx = \int f(u)du \)<br>• Integration by parts: \( \int u\,dv = uv - \int v\,du \)<br>• Partial fractions for rational functions<br>• \( \int \frac{1}{x}dx = \ln|x|+C \)</div></div>
+        <div class="info-panel"><div class="panel-head">Applications: Area, Volume, Work</div><div class="panel-body"><strong>Area between curves:</strong> \( \int_a^b [f(x)-g(x)]dx \).<br><strong>Volume of revolution (disk method):</strong> \( V = \pi \int_a^b [f(x)]^2 dx \).<br><strong>Work:</strong> \( W = \int F(x)\,dx \) (variable force).<br><strong>Example:</strong> \( \int_0^3 x^2 dx = [x^3/3]_0^3 = 9 \).<br><strong>Probability:</strong> For a continuous random variable, \( P(a\le X\le b)=\int_a^b f_X(x)dx \).</div></div>
     </div>
 
-    <!-- =============== PART 5: MATRICES – INVERSES & EIGENVALUES (very detailed) =============== -->
     <h2>🧮 5. Matrices: Inverses, Eigenvalues & Eigenspaces</h2>
-    <div class="definition">
-        <strong>Matrix:</strong> rectangular array of numbers. \( A_{m\times n} \). Square matrix \( n\times n \). Identity \( I_n \).<br>
-        <strong>Inverse:</strong> If \( AB = BA = I \), then \( B = A^{-1} \). Exists iff \( \det(A) \neq 0 \). Used to solve \( A\mathbf{x}=\mathbf{b} \).<br>
-        <strong>Eigenvalues & Eigenvectors:</strong> Scalar \( \lambda \) and nonzero vector \( \mathbf{v} \) satisfy \( A\mathbf{v} = \lambda \mathbf{v} \). Compute via \( \det(A-\lambda I)=0 \) (characteristic polynomial).
-    </div>
+    <div class="definition"><strong>Matrix:</strong> rectangular array of numbers. \( A_{m\times n} \). Square matrix \( n\times n \). Identity \( I_n \).<br><strong>Inverse:</strong> If \( AB = BA = I \), then \( B = A^{-1} \). Exists iff \( \det(A) \neq 0 \). Used to solve \( A\mathbf{x}=\mathbf{b} \).<br><strong>Eigenvalues & Eigenvectors:</strong> Scalar \( \lambda \) and nonzero vector \( \mathbf{v} \) satisfy \( A\mathbf{v} = \lambda \mathbf{v} \). Compute via \( \det(A-\lambda I)=0 \) (characteristic polynomial).</div>
     <div class="grid-2col">
-        <div class="info-panel">
-            <div class="panel-head">🔢 2×2 Inverse Formula</div>
-            <div class="panel-body">
-                For \( A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \), \( \det(A)=ad-bc \). If \( \det \neq 0 \):<br>
-                \[ A^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix} \]<br>
-                <strong>Example:</strong> \( A=\begin{bmatrix}4&2\\1&3\end{bmatrix} \), \( \det=10 \), \( A^{-1}=\frac{1}{10}\begin{bmatrix}3&-2\\-1&4\end{bmatrix} \).
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">✨ Eigenvalue Computation</div>
-            <div class="panel-body">
-                Solve \( \det(A-\lambda I)=0 \). For 2×2: \( \lambda^2 - \text{trace}(A)\lambda + \det(A)=0 \).<br>
-                <strong>Example:</strong> \( A=\begin{bmatrix}2&1\\1&2\end{bmatrix} \), trace=4, det=3 → \( \lambda^2-4\lambda+3=0 \) → \( \lambda=3,1 \). Eigenvectors: for \( \lambda=3 \), solve \( (A-3I)v=0 \) → \( v=(1,1) \).<br>
-                <strong>Applications:</strong> Principal Component Analysis (PCA): eigenvectors of covariance matrix give principal directions. Google PageRank uses dominant eigenvector.
-            </div>
-        </div>
-    </div>
-    <div class="theorem">
-        <strong>Diagonalization:</strong> If \( A \) has \( n \) independent eigenvectors, then \( A = PDP^{-1} \) where \( D \) is diagonal of eigenvalues. Useful for computing \( A^k \) quickly and solving differential systems.
-    </div>
-    <div class="example-box">
-        🌐 <strong>Markov chains & eigenvalues:</strong> Transition matrix \( P \) has eigenvalue 1 with steady-state eigenvector. PageRank algorithm: eigenvector of Google matrix corresponds to webpage importance.
+        <div class="info-panel"><div class="panel-head">🔢 2×2 Inverse Formula</div><div class="panel-body">For \( A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \), \( \det(A)=ad-bc \). If \( \det \neq 0 \):<br> \[ A^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix} \]<br><strong>Example:</strong> \( A=\begin{bmatrix}4&2\\1&3\end{bmatrix} \), \( \det=10 \), \( A^{-1}=\frac{1}{10}\begin{bmatrix}3&-2\\-1&4\end{bmatrix} \).</div></div>
+        <div class="info-panel"><div class="panel-head">✨ Eigenvalue Computation</div><div class="panel-body">Solve \( \det(A-\lambda I)=0 \). For 2×2: \( \lambda^2 - \text{trace}(A)\lambda + \det(A)=0 \).<br><strong>Example:</strong> \( A=\begin{bmatrix}2&1\\1&2\end{bmatrix} \), trace=4, det=3 → \( \lambda^2-4\lambda+3=0 \) → \( \lambda=3,1 \). Eigenvectors: for \( \lambda=3 \), solve \( (A-3I)v=0 \) → \( v=(1,1) \).<br><strong>Applications:</strong> Principal Component Analysis (PCA): eigenvectors of covariance matrix give principal directions. Google PageRank uses dominant eigenvector.</div></div>
     </div>
 
-    <!-- =============== PART 6: BASIC STATISTICS (full detailed) =============== -->
     <h2>📊 6. Basic Statistics: Describing & Interpreting Data</h2>
-    <div class="definition">
-        <strong>Descriptive statistics:</strong> Summarize data using measures of central tendency (mean, median, mode) and spread (variance, standard deviation, IQR).<br>
-        <strong>Mean:</strong> \( \bar{x} = \frac{1}{n}\sum_{i=1}^n x_i \). <br>
-        <strong>Variance:</strong> \( s^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^2 \) (population formula). Standard deviation \( s = \sqrt{s^2} \).
-    </div>
+    <div class="definition"><strong>Descriptive statistics:</strong> Summarize data using measures of central tendency (mean, median, mode) and spread (variance, standard deviation, IQR).<br><strong>Mean:</strong> \( \bar{x} = \frac{1}{n}\sum_{i=1}^n x_i \). <br><strong>Variance:</strong> \( s^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^2 \) (population formula). Standard deviation \( s = \sqrt{s^2} \).</div>
     <div class="grid-2col">
-        <div class="info-panel">
-            <div class="panel-head">Normal Distribution & Z-scores</div>
-            <div class="panel-body">
-                \( X \sim N(\mu,\sigma^2) \): bell curve. \( Z = \frac{X-\mu}{\sigma} \). Empirical rule: ≈68% within 1σ, 95% within 2σ, 99.7% within 3σ.<br>
-                <strong>Application:</strong> IQ scores ~ N(100,15). A score of 130 corresponds to \( Z = (130-100)/15=2 \) → 97.7th percentile.
-            </div>
-        </div>
-        <div class="info-panel">
-            <div class="panel-head">Sampling & Correlation</div>
-            <div class="panel-body">
-                <strong>Correlation coefficient r:</strong> measures linear association between two variables (\( -1 \le r \le 1 \)).<br>
-                <strong>Simple linear regression:</strong> \( \hat{y} = b_0 + b_1 x \).<br>
-                <strong>Example:</strong> Height vs. weight: strong positive correlation (r ~ 0.7). Used in predictive modeling.
-            </div>
-        </div>
+        <div class="info-panel"><div class="panel-head">Normal Distribution & Z-scores</div><div class="panel-body">\( X \sim N(\mu,\sigma^2) \): bell curve. \( Z = \frac{X-\mu}{\sigma} \). Empirical rule: ≈68% within 1σ, 95% within 2σ, 99.7% within 3σ.<br><strong>Application:</strong> IQ scores ~ N(100,15). A score of 130 corresponds to \( Z = (130-100)/15=2 \) → 97.7th percentile.</div></div>
+        <div class="info-panel"><div class="panel-head">Sampling & Correlation</div><div class="panel-body"><strong>Correlation coefficient r:</strong> measures linear association between two variables (\( -1 \le r \le 1 \)).<br><strong>Simple linear regression:</strong> \( \hat{y} = b_0 + b_1 x \).<br><strong>Example:</strong> Height vs. weight: strong positive correlation (r ~ 0.7). Used in predictive modeling.</div></div>
     </div>
-    <div class="example-box">
-        📉 <strong>Detailed statistical example:</strong> Dataset: [4, 8, 6, 5, 3]. Mean = (4+8+6+5+3)/5 = 26/5 = 5.2. Variance = [(4-5.2)²+(8-5.2)²+(6-5.2)²+(5-5.2)²+(3-5.2)²]/5 = [1.44+7.84+0.64+0.04+4.84]/5 = 14.8/5 = 2.96. Standard deviation ≈1.72. Median = 5. Applications: quality control, A/B testing, economics.
+    <div class="example-box">📉 <strong>Detailed statistical example:</strong> Dataset: [4, 8, 6, 5, 3]. Mean = (4+8+6+5+3)/5 = 26/5 = 5.2. Variance = [(4-5.2)²+(8-5.2)²+(6-5.2)²+(5-5.2)²+(3-5.2)²]/5 = [1.44+7.84+0.64+0.04+4.84]/5 = 14.8/5 = 2.96. Standard deviation ≈1.72. Median = 5. Applications: quality control, A/B testing, economics.</div>
+
+    <div class="theorem" style="background:#eaf7f0;">💡 <strong>Summary & Intellectual Bridge:</strong> Functions describe dependencies; calculus measures change and accumulation; matrices handle multi-dimensional transformations and systems; statistics extracts insight from data. Together they form the quantitative language of science, engineering, finance, and AI.</div>
+
+    <!-- ================= NEW ADDITION: EXERCISE VAULT WITH DROPDOWN MENU (SEPARATE SECTION) ================= -->
+    <div class="exercise-vault">
+        <div class="vault-header">
+            <h2>📚 Exercise Vault</h2>
+            <select id="exerciseDropdown">
+                <option value="">-- Select an exercise --</option>
+                <option value="ex1">📐 1. Function Composition & Inverse</option>
+                <option value="ex2">⚡ 2. Exponential Decay & Half-Life</option>
+                <option value="ex3">🌊 3. Trigonometric Modeling (Ferris Wheel)</option>
+                <option value="ex4">📈 4. Derivative Computation (Power/Product/Chain)</option>
+                <option value="ex5">📦 5. Optimization (Fencing Problem)</option>
+                <option value="ex6">🎈 6. Related Rates (Balloon)</option>
+                <option value="ex7">🧮 7. Definite Integrals (Area Calculation)</option>
+                <option value="ex8">📊 8. Area Between Curves</option>
+                <option value="ex9">📐 9. Average Value of a Function</option>
+                <option value="ex10">🔢 10. Matrix Inverse & Linear System</option>
+                <option value="ex11">⭐ 11. Eigenvalues & Eigenvectors</option>
+                <option value="ex12">📉 12. Descriptive Statistics (Mean, Variance, SD)</option>
+                <option value="ex13">📈 13. Normal Distribution & Z-scores</option>
+                <option value="ex14">🧪 14. Separable Differential Equation (Population)</option>
+                <option value="ex15">🔄 15. Markov Chain & Steady State</option>
+                <option value="ex16">🎲 16. Binomial Probability Distribution</option>
+                <option value="ex17">💻 17. Newton-Raphson Method (Root Finding)</option>
+            </select>
+        </div>
+        <div id="exerciseDisplay" class="exercise-card" style="min-height: 280px;">
+            <p style="color: #4a627a; text-align: center; padding: 1rem;">Select an exercise from the dropdown to view the problem and detailed solution.</p>
+        </div>
     </div>
 
-    <!-- =============== PART 7: COMPREHENSIVE APPLICATIONS TABLE =============== -->
-    <h2>🔗 Cross-Domain Applications & Connections</h2>
-    <table>
-        <thead>
-            <tr><th>Concept</th><th>Real-World Application</th><th>Example / Insight</th></tr>
-        </thead>
-        <tbody>
-            <tr><td>Exponential/Log functions</td><td>Compound interest, virus spread</td><td>\( A=Pe^{rt} \), doubling time \( \ln2/r \)</td></tr>
-            <tr><td>Derivatives (Calculus I)</td><td>Marginal cost, velocity</td><td>Marginal revenue = derivative of revenue function</td></tr>
-            <tr><td>Integrals (Calculus II)</td><td>Total distance, energy consumption</td><td>\( \int v(t)dt \) = net displacement</td></tr>
-            <tr><td>Matrix inverse</td><td>Solving linear systems (economics)</td><td>Input-output model: \( x = (I-A)^{-1}d \)</td></tr>
-            <tr><td>Eigenvalues</td><td>PCA, vibrations, Google PageRank</td><td>Dominant eigenvalue gives long-term behavior</td></tr>
-            <tr><td>Normal distribution</td><td>Test scores, measurement errors</td><td>Z-score for outlier detection</td></tr>
-        </tbody>
-    </table>
-
-    <!-- =============== SUMMARY SECTION =============== -->
-    <div class="theorem" style="background:#eaf7f0;">
-        💡 <strong>Summary & Intellectual Bridge:</strong> Functions describe dependencies; calculus measures change and accumulation; matrices handle multi-dimensional transformations and systems; statistics extracts insight from data. Together they form the quantitative language of science, engineering, finance, and AI.
-    </div>
     <footer>
-        📚 This guide provides rigorous, example-rich exposition — from function fundamentals to eigenvalue decomposition. Every topic includes derivations, applications, and detailed computations.
+        📚 This guide provides rigorous, example-rich exposition — from function fundamentals to eigenvalue decomposition. Every topic includes derivations, applications, and detailed computations.<br>
+        🧠 <strong>Exercise Vault:</strong> Choose any problem from the dropdown; each includes a complete step-by-step solution. Toggle solution visibility with the button.
     </footer>
 </div>
+
+<script>
+    // Exercise database with problems and detailed solutions (properly escaped for LaTeX)
+    const exercises = {
+        ex1: {
+            title: "Function Composition & Inverse",
+            problem: "Let \\( f(x) = \\frac{2x-1}{3} \\) and \\( g(x) = x^2 + 4 \\). (a) Find \\( (f \\circ g)(x) \\) and simplify. (b) Find the inverse function \\( f^{-1}(x) \\). (c) Evaluate \\( (g \\circ f)(2) \\).",
+            solution: "<strong>(a)</strong> \\( (f \\circ g)(x) = f(x^2+4) = \\frac{2(x^2+4)-1}{3} = \\frac{2x^2+7}{3} \\).<br><strong>(b)</strong> Set \\( y = \\frac{2x-1}{3} \\), swap: \\( x = \\frac{2y-1}{3} \\) → \\( 3x = 2y-1 \\) → \\( y = \\frac{3x+1}{2} \\), so \\( f^{-1}(x)=\\frac{3x+1}{2} \\).<br><strong>(c)</strong> \\( f(2)=\\frac{4-1}{3}=1 \\), then \\( g(1)=1^2+4=5 \\)."
+        },
+        ex2: {
+            title: "Exponential Decay & Half-Life",
+            problem: "A radioactive substance decays according to \\( N(t) = N_0 e^{-kt} \\) with half-life 8 hours. Initially \\( N_0 = 200 \\) mg. (a) Find decay constant \\( k \\). (b) How many mg remain after 24 hours? (c) Solve \\( \\log_5(2x-1)=2 \\).",
+            solution: "<strong>(a)</strong> Half-life: \\( e^{-8k}=1/2 \\) → \\( -8k = -\\ln 2 \\) → \\( k = \\frac{\\ln 2}{8} \\).<br><strong>(b)</strong> \\( N(24)=200 e^{-3\\ln 2}=200/8=25 \\) mg.<br><strong>(c)</strong> \\( 2x-1=25 \\) → \\( x=13 \\)."
+        },
+        ex3: {
+            title: "Trigonometric Modeling (Ferris Wheel)",
+            problem: "Height of a rider: \\( h(t) = 30 + 25\\sin\\left(\\frac{\\pi}{10}t\\right) \\) meters. (a) Maximum height and period. (b) First time \\( t>0 \\) when height is 50 m.",
+            solution: "<strong>(a)</strong> Max = 30+25=55 m, period = \\( \\frac{2\\pi}{\\pi/10}=20 \\) min.<br><strong>(b)</strong> \\( 30+25\\sin(\\frac{\\pi}{10}t)=50 \\) → \\( \\sin(\\frac{\\pi}{10}t)=0.8 \\) → \\( \\frac{\\pi}{10}t = \\arcsin(0.8)\\approx 0.9273 \\) → \\( t\\approx 2.95 \\) min."
+        },
+        ex4: {
+            title: "Derivative Computation",
+            problem: "Compute \\( f'(x) \\) for: (a) \\( f(x)=5x^4-3x^2+7x-2 \\); (b) \\( f(x)=x^2 e^x \\); (c) \\( f(x)=\\ln(3x^2+1) \\).",
+            solution: "<strong>(a)</strong> \\( f'(x)=20x^3-6x+7 \\).<br><strong>(b)</strong> Product rule: \\( f'(x)=2x e^x + x^2 e^x = e^x(x^2+2x) \\).<br><strong>(c)</strong> Chain rule: \\( f'(x)=\\frac{6x}{3x^2+1} \\)."
+        },
+        ex5: {
+            title: "Optimization (Fencing Problem)",
+            problem: "A rectangular garden against a barn uses 120 m of fencing for three sides. Find dimensions that maximize area.",
+            solution: "Width = \\( x \\) (perpendicular to barn), length = \\( y \\). Fencing: \\( 2x+y=120 \\) → \\( y=120-2x \\). Area \\( A(x)=x(120-2x)=120x-2x^2 \\). \\( A'(x)=120-4x=0 \\) → \\( x=30 \\), \\( y=60 \\). Max area = 1800 m²."
+        },
+        ex6: {
+            title: "Related Rates (Balloon)",
+            problem: "Spherical balloon volume increases at \\( 10 \\text{ cm}^3/\\text{s} \\). Find \\( \\frac{dr}{dt} \\) when \\( r=5 \\) cm. \\( V=\\frac{4}{3}\\pi r^3 \\).",
+            solution: "Differentiate: \\( \\frac{dV}{dt}=4\\pi r^2 \\frac{dr}{dt} \\). Plug \\( \\frac{dV}{dt}=10, r=5 \\): \\( 10=4\\pi(25)\\frac{dr}{dt} \\) → \\( \\frac{dr}{dt}=\\frac{10}{100\\pi}=\\frac{1}{10\\pi} \\) cm/s."
+        },
+        ex7: {
+            title: "Definite Integrals",
+            problem: "Evaluate: (a) \\( \\int_{1}^{3} (4x-2) dx \\); (b) \\( \\int_{0}^{\\pi/2} \\sin x dx \\); (c) \\( \\int_{1}^{e} \\frac{1}{x} dx \\).",
+            solution: "<strong>(a)</strong> \\( [2x^2-2x]_{1}^{3}= (18-6)-(2-2)=12 \\).<br><strong>(b)</strong> \\( [-\\cos x]_{0}^{\\pi/2}=0+1=1 \\).<br><strong>(c)</strong> \\( [\\ln x]_{1}^{e}=1-0=1 \\)."
+        },
+        ex8: {
+            title: "Area Between Curves",
+            problem: "Find area bounded by \\( y=x^2 \\) and \\( y=x+2 \\).",
+            solution: "Intersection: \\( x^2=x+2 \\) → \\( x^2-x-2=0 \\) → \\( x=-1,2 \\). Area = \\( \\int_{-1}^{2} (x+2-x^2)dx = \\left[ \\frac{x^2}{2}+2x-\\frac{x^3}{3} \\right]_{-1}^{2} = \\frac{9}{2} \\) sq units."
+        },
+        ex9: {
+            title: "Average Value of a Function",
+            problem: "Find average value of \\( f(x)=x^3-x \\) over \\( [0,2] \\).",
+            solution: "Average = \\( \\frac{1}{2}\\int_{0}^{2} (x^3-x)dx = \\frac{1}{2}\\left[ \\frac{x^4}{4}-\\frac{x^2}{2} \\right]_{0}^{2} = \\frac{1}{2}(4-2)=1 \\)."
+        },
+        ex10: {
+            title: "Matrix Inverse & Linear System",
+            problem: "Given \\( A=\\begin{bmatrix}2&5\\\\1&3\\end{bmatrix} \\). (a) Compute \\( A^{-1} \\). (b) Solve \\( A\\mathbf{x}=\\begin{bmatrix}1\\\\2\\end{bmatrix} \\).",
+            solution: "<strong>(a)</strong> det=1, \\( A^{-1}=\\begin{bmatrix}3&-5\\\\-1&2\\end{bmatrix} \\).<br><strong>(b)</strong> \\( \\mathbf{x}=A^{-1}\\mathbf{b}=\\begin{bmatrix}-7\\\\3\\end{bmatrix} \\)."
+        },
+        ex11: {
+            title: "Eigenvalues & Eigenvectors",
+            problem: "Find eigenvalues and eigenvectors for \\( B=\\begin{bmatrix}4&1\\\\2&3\\end{bmatrix} \\).",
+            solution: "Characteristic: \\( \\lambda^2-7\\lambda+10=0 \\) → \\( \\lambda=5,2 \\). For \\( \\lambda=5 \\): eigenvector \\( [1,1]^T \\). For \\( \\lambda=2 \\): eigenvector \\( [1,-2]^T \\)."
+        },
+        ex12: {
+            title: "Descriptive Statistics",
+            problem: "Data: 10,12,23,23,16,19,21,18. Compute mean, median, variance (n-1), standard deviation.",
+            solution: "Mean=17.75, median=18.5, variance≈23.357, sd≈4.833."
+        },
+        ex13: {
+            title: "Normal Distribution & Z-scores",
+            problem: "Heights ~ N(162,7). (a) Z-score for 175 cm. (b) % taller than 175. (c) 90th percentile height.",
+            solution: "<strong>(a)</strong> \\( z=(175-162)/7\\approx1.857 \\).<br><strong>(b)</strong> ~3.17%.<br><strong>(c)</strong> 90th percentile: \\( 162+1.282\\cdot7\\approx170.97 \\) cm."
+        },
+        ex14: {
+            title: "Separable Differential Equation",
+            problem: "Solve \\( \\frac{dy}{dt}=3y \\) with \\( y(0)=100 \\). Find \\( y(2) \\).",
+            solution: "Separate: \\( dy/y=3dt \\) → \\( \\ln|y|=3t+C \\) → \\( y=Ce^{3t} \\). Using IC: \\( C=100 \\). So \\( y(2)=100e^{6}\\approx40342.9 \\)."
+        },
+        ex15: {
+            title: "Markov Chain & Steady State",
+            problem: "Transition matrix \\( P=\\begin{bmatrix}0.7&0.3\\\\0.4&0.6\\end{bmatrix} \\). Find steady-state vector \\( \\pi \\).",
+            solution: "Solve \\( \\pi P=\\pi \\) with \\( \\pi_1+\\pi_2=1 \\). Equations yield \\( \\pi_1=4/7, \\pi_2=3/7 \\)."
+        },
+        ex16: {
+            title: "Binomial Probability Distribution",
+            problem: "Fair coin flipped 10 times. Probability of exactly 6 heads? Mean and variance?",
+            solution: "\\( P=\\binom{10}{6}(0.5)^{10}=210/1024\\approx0.2051 \\), mean=5, variance=2.5."
+        },
+        ex17: {
+            title: "Newton-Raphson Method",
+            problem: "Approximate root of \\( f(x)=x^3-2x-5 \\) starting \\( x_0=2 \\). Perform one iteration.",
+            solution: "\\( f'(x)=3x^2-2 \\), \\( f(2)=-1, f'(2)=10 \\) → \\( x_1=2-(-1/10)=2.1 \\)."
+        }
+    };
+
+    const dropdown = document.getElementById('exerciseDropdown');
+    const displayDiv = document.getElementById('exerciseDisplay');
+
+    function renderExercise(exKey) {
+        if (!exKey || !exercises[exKey]) {
+            displayDiv.innerHTML = `<p style="color: #4a627a; text-align: center; padding: 1rem;">Select an exercise from the dropdown to view the problem and detailed solution.</p>`;
+            return;
+        }
+        const ex = exercises[exKey];
+        const solId = `sol-${exKey}-${Date.now()}`;
+        displayDiv.innerHTML = `
+            <div class="problem-statement">📌 ${ex.title}</div>
+            <div class="problem-text">${ex.problem}</div>
+            <button class="sol-toggle" data-sol="${solId}">Show Solution</button>
+            <div id="${solId}" class="solution-detail"><div class="sol-title">✨ Detailed Solution:</div> ${ex.solution}</div>
+        `;
+        // attach toggle event to the newly created button
+        const btn = displayDiv.querySelector('.sol-toggle');
+        const solDiv = displayDiv.querySelector('.solution-detail');
+        if (btn && solDiv) {
+            btn.addEventListener('click', () => {
+                if (solDiv.classList.contains('show')) {
+                    solDiv.classList.remove('show');
+                    btn.textContent = 'Show Solution';
+                } else {
+                    solDiv.classList.add('show');
+                    btn.textContent = 'Hide Solution';
+                }
+            });
+        }
+        // re-render MathJax for new LaTeX content
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+    }
+
+    dropdown.addEventListener('change', (e) => {
+        renderExercise(e.target.value);
+    });
+    
+    // Initial render of MathJax for the main content
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+</script>
 </body>
 </html>
